@@ -26,6 +26,11 @@ def clear_users():
     db_ops.db_clear_table('users')
     return "Table users successfully cleared."
 
+@app.route('/clear_pictures', methods=['POST'])
+def clear_pictures():
+    db_ops.db_clear_table('pictures')
+    return "Table pictures successfully cleared."
+
 @app.route('/check_user', methods=['POST'])
 def check_user():
     if request.headers['Content-Type'] == 'application/json':
@@ -37,3 +42,13 @@ def check_user():
         )
     else:
         return "JSON body is required."
+
+@app.route('/add_picture', methods=['POST'])
+def add_picture():
+    if request.headers['Content-Type'] == 'application/json':
+        if not ('name' in request.json and 'picture' in request.json):
+            return "Name and picture are required"
+        name = request.json['name']
+        img_base_64 = request.json['picture']
+        db_ops.db_add_image(name, img_base_64)
+    return "Good"

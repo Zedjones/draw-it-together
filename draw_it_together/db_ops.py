@@ -37,3 +37,17 @@ def db_check_for_name(name):
                  "  WHERE name = '{}'".format(name)
     cur.execute(select_str)
     return cur.fetchone() is not None
+
+def db_add_image(name, image):
+    select_str = "SELECT count(name)\n" \
+                 "  FROM pictures\n" \
+                 "  WHERE name='{}'".format(name)
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute(select_str)
+    count = cur.fetchone()
+    insert_str = "INSERT INTO pictures (image, name, order)\n" \
+                 "  VALUES ('{}', '{}', {});".format(image, name, count[0]+1)
+    cur.execute(insert_str)
+    conn.commit()
+    cur.close()
