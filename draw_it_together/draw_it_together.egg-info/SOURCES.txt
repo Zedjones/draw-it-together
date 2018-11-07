@@ -1,0 +1,7 @@
+setup.py
+draw_it_together.egg-info/PKG-INFO
+draw_it_together.egg-info/SOURCES.txt
+draw_it_together.egg-info/dependency_links.txt
+draw_it_together.egg-info/not-zip-safe
+draw_it_together.egg-info/requires.txt
+draw_it_together.egg-info/top_level.txt
