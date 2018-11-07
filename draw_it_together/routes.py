@@ -29,6 +29,7 @@ def clear_users():
 @app.route('/clear_pictures', methods=['POST'])
 def clear_pictures():
     db_ops.db_clear_table('pictures')
+    db_ops.db_reset_serial('pictures', 'id')
     return "Table pictures successfully cleared."
 
 @app.route('/check_user', methods=['POST'])

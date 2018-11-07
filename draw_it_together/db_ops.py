@@ -29,6 +29,14 @@ def db_clear_table(table):
     conn.commit()
     cur.close()
 
+def db_reset_serial(table, column):
+    conn = connect()
+    cur = conn.cursor()
+    reset_str = "ALTER SEQUENCE {}_{}_seq RESTART WITH 1".format(table, column)
+    cur.execute(reset_str)
+    conn.commit()
+    cur.close()
+
 def db_check_for_name(name):
     conn = connect()
     cur = conn.cursor()
@@ -46,7 +54,7 @@ def db_add_image(name, image):
     cur = conn.cursor()
     cur.execute(select_str)
     count = cur.fetchone()
-    insert_str = "INSERT INTO pictures (image, name, order)\n" \
+    insert_str = "INSERT INTO pictures (image, name, order_num)\n" \
                  "  VALUES ('{}', '{}', {});".format(image, name, count[0]+1)
     cur.execute(insert_str)
     conn.commit()
