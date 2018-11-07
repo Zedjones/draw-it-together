@@ -50,6 +50,7 @@ def check_user():
             return error("Name is required.")
         name = request.json['name']
         return jsonify(
+            success=True,
             exists=db_ops.db_check_for_name(name)
         )
     else:
